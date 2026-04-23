@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel+Decorative:wght@700&family=Share+Tech+Mono&family=UnifrakturMaguntia&family=Bangers&family=Orbitron:wght@700&family=Bebas+Neue&family=Rubik+Moonrocks&family=Metal+Mania&family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 540px; height: 540px; overflow: hidden; background: #000; }
+</style>
+</head>
+<body>
+
+{%- macro knife_filled() -%}
+<div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div>
+{%- endmacro -%}
+
+{%- macro knife_empty() -%}
+<div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div>
+{%- endmacro -%}
+
+{%- macro knife_row(label, score) -%}
+<div style="display:flex;align-items:center;justify-content:space-between;">
+  <span style="color:#bbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:78px;">{{ label }}</span>
+  <div style="display:flex;gap:7px;align-items:center;">
+    {%- for i in range(1, 6) -%}
+      {%- if i <= score %}{{ knife_filled() }}{%- else %}{{ knife_empty() }}{%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endmacro -%}
+
+<!-- THE CARD: 540×540 renders at 2x device pixel ratio → 1080×1080 PNG -->
+<div style="
+  width:540px;height:540px;
+  background:radial-gradient(ellipse at center,#120404 0%,#080808 55%,#000 100%);
+  overflow:hidden;display:flex;flex-direction:column;position:relative;
+">
+
+  <!-- Corner atmosphere glows -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 0% 100%,rgba(100,0,0,0.14) 0%,transparent 45%);pointer-events:none;z-index:0;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,rgba(70,0,0,0.10) 0%,transparent 40%);pointer-events:none;z-index:0;"></div>
+
+  <!-- HEADER -->
+  <div style="height:52px;min-height:52px;background:linear-gradient(135deg,#0d0d0d 0%,#1a0404 100%);border-bottom:2px solid #8b0000;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;">
+
+    <!-- Logo -->
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="{{ logo_src }}" style="height:32px;width:auto;object-fit:contain;" alt="Cinema of Fear">
+    </div>
+
+    <!-- Sub-genre label badge -->
+    <div style="background:#0d0d0d;border:1px solid #3a0a0a;border-radius:3px;padding:5px 11px;">
+      {%- if sub_genre == 'slasher' -%}
+      <div style="font-family:'Creepster',cursive;font-size:14px;color:#ff2200;letter-spacing:2px;text-shadow:0 0 8px rgba(255,34,0,0.4);display:flex;align-items:center;gap:1px;">SL<svg width="8" height="16" viewBox="0 0 36 95" fill="none" style="display:inline-block;vertical-align:middle;transform:rotate(15deg) translateY(-1px);"><rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a"/><rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a"/><path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/><ellipse cx="21" cy="52" rx="7" ry="4" fill="#cc0000" opacity="0.9"/><path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/></svg>SHER</div>
+      {%- elif sub_genre == 'body_horror' -%}
+      <div style="font-family:'Rubik Moonrocks',cursive;font-size:13px;color:#cc0000;letter-spacing:2px;text-shadow:0 0 6px #880000;">BODY HORROR</div>
+      {%- elif sub_genre == 'supernatural' -%}
+      <div style="font-family:'Cinzel Decorative',serif;font-size:10px;color:#9b59b6;letter-spacing:2px;text-shadow:0 0 12px rgba(155,89,182,0.7),0 0 24px rgba(155,89,182,0.3);text-transform:uppercase;">SUPERNATURAL</div>
+      {%- elif sub_genre == 'psychological' -%}
+      <div style="font-family:'Special Elite',cursive;font-size:13px;color:#e8e8e8;letter-spacing:1px;filter:blur(0.3px);text-shadow:2px 0 #cc0000,-1px 0 #0044cc;transform:skewX(-4deg);">PSYCHOLOGICAL</div>
+      {%- elif sub_genre == 'found_footage' -%}
+      <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:#00ff44;letter-spacing:2px;text-shadow:0 0 8px #00ff44;">&#9658; FOUND FOOTAGE</div>
+      {%- elif sub_genre == 'creature_feature' -%}
+      <div style="font-family:'Metal Mania',cursive;font-size:13px;color:#5d8a3c;letter-spacing:2px;text-shadow:1px 1px 0 #1a2e0f,0 0 10px rgba(93,138,60,0.4);">CREATURE FEATURE</div>
+      {%- elif sub_genre == 'survival_horror' -%}
+      <div style="font-family:'Rye',cursive;font-size:13px;color:#c4922a;letter-spacing:2px;text-shadow:1px 1px 2px #000,0 0 4px rgba(196,146,42,0.3);">SURVIVAL HORROR</div>
+      {%- elif sub_genre == 'vampire_werewolf' -%}
+      <div style="font-family:'UnifrakturMaguntia',cursive;font-size:18px;color:#8b0000;letter-spacing:1px;text-shadow:0 0 8px rgba(139,0,0,0.5);">Vampire/Werewolf</div>
+      {%- elif sub_genre == 'zombie' -%}
+      <div style="font-family:'Creepster',cursive;font-size:18px;color:#5a7a2e;letter-spacing:3px;text-shadow:2px 3px 0 #1a2a00,0 0 8px rgba(90,122,46,0.4);filter:blur(0.2px);">ZOMBIE</div>
+      {%- elif sub_genre == 'torture_extreme' -%}
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#cc0000;letter-spacing:4px;border-bottom:2px solid #cc0000;padding-bottom:2px;">TORTURE / EXTREME</div>
+      {%- elif sub_genre == 'comedy' -%}
+      <div style="font-family:'Bangers',cursive;font-size:18px;color:#f5a623;letter-spacing:3px;text-shadow:2px 2px 0 #8b5e00,0 0 10px rgba(245,166,35,0.3);transform:rotate(-2deg);display:inline-block;">COMEDY</div>
+      {%- elif sub_genre == 'sci_fi' -%}
+      <div style="font-family:'Orbitron',sans-serif;font-size:10px;color:#00bfff;letter-spacing:3px;text-shadow:0 0 10px #00bfff,0 0 20px rgba(0,191,255,0.4);">SCI-FI HORROR</div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div style="flex:1;display:flex;overflow:hidden;position:relative;z-index:1;">
+
+    <!-- LEFT: Poster -->
+    <div style="width:168px;min-width:168px;background:#070707;border-right:2px solid #1a0505;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;gap:8px;">
+      <img src="{{ poster_src }}" style="width:140px;height:210px;object-fit:cover;border-radius:4px;border:1px solid #8b0000;" alt="{{ title }}">
+      <div style="color:#888;font-size:10px;text-align:center;letter-spacing:1px;text-transform:uppercase;line-height:1.3;">{{ title }}</div>
+      <div style="color:#444;font-size:9px;letter-spacing:1px;">{{ year }}{% if runtime %} · {{ runtime }}{% endif %}</div>
+    </div>
+
+    <!-- RIGHT: Ratings + Review -->
+    <div style="flex:1;display:flex;flex-direction:column;padding:14px 12px 10px 14px;gap:0;">
+
+      <div style="color:#3a0000;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">— RATINGS —</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">
+        {{ knife_row("Atmosphere",  ratings.atmosphere) }}
+        {{ knife_row("Characters",  ratings.characters) }}
+        {{ knife_row("Originality", ratings.originality) }}
+        {{ knife_row("Script",      ratings.script) }}
+        {{ knife_row("Gore",        ratings.gore) }}
+      </div>
+
+      <!-- Overall -->
+      <div style="border-top:1px solid #1a0505;padding-top:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+        <span style="color:#555;font-size:8px;letter-spacing:2px;text-transform:uppercase;">Overall</span>
+        <div style="display:flex;gap:7px;align-items:center;">
+          {%- for i in range(1, 6) -%}
+            {%- if i <= overall %}{{ knife_filled() }}{%- else %}{{ knife_empty() }}{%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Review -->
+      <div style="border-top:1px solid #1a0505;padding-top:8px;">
+        <div style="color:#3a0000;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">— REVIEW —</div>
+        <div style="color:#888;font-size:10px;line-height:1.55;font-style:italic;">"{{ review_text }}"</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER: Recommendation -->
+  <div style="height:52px;min-height:52px;background:linear-gradient(135deg,#0d0d0d 0%,#1a0404 100%);border-top:2px solid #8b0000;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;position:relative;z-index:1;">
+    <div style="flex:1;text-align:center;padding:7px 0;border-radius:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+      {%- if recommendation == 'skip' %}background:#8b0000;border:1px solid #cc0000;color:#fff;font-weight:bold;box-shadow:0 0 14px rgba(139,0,0,0.5);{%- else %}border:1px solid #222;color:#333;{%- endif %}">SKIP</div>
+    <div style="flex:1;text-align:center;padding:7px 0;border-radius:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+      {%- if recommendation == 'stream' %}background:#8b0000;border:1px solid #cc0000;color:#fff;font-weight:bold;box-shadow:0 0 14px rgba(139,0,0,0.5);{%- else %}border:1px solid #222;color:#333;{%- endif %}">STREAM</div>
+    <div style="flex:1;text-align:center;padding:7px 0;border-radius:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+      {%- if recommendation == 'theater' %}background:#8b0000;border:1px solid #cc0000;color:#fff;font-weight:bold;box-shadow:0 0 14px rgba(139,0,0,0.5);{%- else %}border:1px solid #222;color:#333;{%- endif %}">THEATER</div>
+  </div>
+
+</div>
+</body>
+</html>
