@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import os
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -9,20 +11,26 @@ from dotenv import load_dotenv
 load_dotenv()
 
 IG_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
-IMGUR_CLIENT_ID = os.getenv("IMGUR_CLIENT_ID")
 GRAPH_BASE = "https://graph.facebook.com/v18.0"
+GITHUB_REPO = Path(__file__).parent.parent.parent / "cinemaoffear"
+GITHUB_USER = "ErccoleHub"
+GITHUB_REPO_NAME = "cinemaoffear"
 
 
-def _upload_to_imgur(image_path: str) -> str:
-    with open(image_path, "rb") as f:
-        resp = requests.post(
-            "https://api.imgur.com/3/image",
-            headers={"Authorization": f"Client-ID {IMGUR_CLIENT_ID}"},
-            files={"image": f},
-            timeout=60,
-        )
-    resp.raise_for_status()
-    return resp.json()["data"]["link"]
+def _upload_to_github(image_path: str) -> str:
+    src = Path(image_path)
+    cards_dir = GITHUB_REPO / "cards"
+    cards_dir.mkdir(parents=True, exist_ok=True)
+
+    dst = cards_dir / src.name
+    shutil.copy2(src, dst)
+
+    subprocess.run(["git", "pull"], cwd=GITHUB_REPO, check=True, capture_output=True)
+    subprocess.run(["git", "add", f"cards/{src.name}"], cwd=GITHUB_REPO, check=True, capture_output=True)
+    subprocess.run(["git", "commit", "-m", f"Add review card: {src.stem}"], cwd=GITHUB_REPO, check=True, capture_output=True)
+    subprocess.run(["git", "push"], cwd=GITHUB_REPO, check=True, capture_output=True)
+
+    return f"https://raw.githubusercontent.com/{GITHUB_USER}/{GITHUB_REPO_NAME}/main/cards/{src.name}"
 
 
 def _get_ig_user_id() -> str:
@@ -56,8 +64,8 @@ def _publish_ig_container(container_id: str, ig_user_id: str) -> str:
 
 
 def post_to_instagram(image_path: str, caption: str) -> str:
-    """Upload to Imgur, create IG container, publish. Returns IG post ID."""
-    public_url = _upload_to_imgur(image_path)
+    """Upload to GitHub, create IG container, publish. Returns IG post ID."""
+    public_url = _upload_to_github(image_path)
     ig_user_id = _get_ig_user_id()
     container_id = _create_ig_container(public_url, caption, ig_user_id)
     return _publish_ig_container(container_id, ig_user_id)

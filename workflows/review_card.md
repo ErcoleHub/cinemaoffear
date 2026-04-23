@@ -114,4 +114,4 @@ Confirm: "Posted! Check your Instagram grid."
 | TMDB/OMDB both fail | Use placeholder poster, continue |
 | Playwright not installed | Tell user: `pip install playwright && playwright install chromium` |
 | Instagram post fails | Show the error. Tell user the card is saved at the path shown and they can post manually. |
-| Imgur upload fails | Same as above — report error, provide local path. |
+| Git push fails | Check network/auth. Ensure `../cinemaoffear/` repo exists and is configured for push. |

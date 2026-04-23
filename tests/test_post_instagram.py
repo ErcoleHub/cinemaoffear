@@ -20,16 +20,19 @@ def _mock_get(return_json):
     return m
 
 
-@patch("post_instagram.requests.post")
-def test_imgur_upload_returns_public_url(mock_post, tmp_path):
+@patch("post_instagram.subprocess.run")
+@patch("post_instagram.shutil.copy2")
+def test_github_upload_returns_public_url(mock_copy, mock_run, tmp_path, monkeypatch):
+    monkeypatch.setattr(pi, "GITHUB_REPO", tmp_path / "cinemaoffear")
     fake_img = tmp_path / "card.png"
     fake_img.write_bytes(b"\x89PNG\r\n\x1a\n")
-    mock_post.return_value = _mock_post({"data": {"link": "https://i.imgur.com/xyz.png"}})
 
-    url = pi._upload_to_imgur(str(fake_img))
+    url = pi._upload_to_github(str(fake_img))
 
-    assert url == "https://i.imgur.com/xyz.png"
-    assert "api.imgur.com/3/image" in mock_post.call_args[0][0]
+    assert "raw.githubusercontent.com" in url
+    assert "card.png" in url
+    assert mock_copy.called
+    assert mock_run.call_count >= 3  # pull, add, commit, push
 
 
 @patch("post_instagram.requests.post")
