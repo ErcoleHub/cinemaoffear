@@ -97,7 +97,7 @@ jobs:
 
       - name: Upload card as artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: uses: actions/upload-artifact@v4
         with:
           name: review-card
           path: .tmp/card_*.png
