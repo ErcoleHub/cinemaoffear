@@ -13,7 +13,7 @@ load_dotenv()
 IG_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 GRAPH_BASE = "https://graph.facebook.com/v18.0"
 GITHUB_REPO = Path(__file__).parent.parent.parent / "cinemaoffear"
-GITHUB_USER = "ErccoleHub"
+GITHUB_USER = "ErcoleHub"
 GITHUB_REPO_NAME = "cinemaoffear"
 
 
