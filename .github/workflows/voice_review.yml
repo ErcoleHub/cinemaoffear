@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -33,7 +33,7 @@ jobs:
           OMDB_API_KEY=${{ secrets.OMDB_API_KEY }}
           ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
           GMAIL_USER=${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_OAUTH_TOKEN=${{ secrets.GMAIL_OAUTH_TOKEN }}
           REVIEW_EMAIL=${{ secrets.REVIEW_EMAIL }}
           EOF
 
@@ -103,11 +103,10 @@ jobs:
               result = deliver_card(
                   card_path=card_path,
                   to_email=os.environ['REVIEW_EMAIL'],
-                  gmail_user=os.environ['GMAIL_USER'],
-                  gmail_app_password=os.environ['GMAIL_APP_PASSWORD'],
+                  from_email=os.environ['GMAIL_USER'],
               )
               print(f"Email: {result['email_address']}")
-              print(f"Status: {result['status']}")
+              print(f"Message ID: {result['message_id']}")
           except KeyError as e:
               print(f"ERROR: Missing secret {e}", file=sys.stderr)
               sys.exit(1)
@@ -118,7 +117,7 @@ jobs:
 
       - name: Save card as artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: review-card
           path: .tmp/card_*.png
