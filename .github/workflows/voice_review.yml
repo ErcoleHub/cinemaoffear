@@ -115,10 +115,11 @@ jobs:
               sys.exit(1)
           PYTHON_SCRIPT
 
-      - name: Save card as artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: review-card
-          path: .tmp/card_*.png
-          retention-days: 30
+      # TODO: artifact upload temporarily disabled due to GitHub deprecation caching
+      # - name: Save card as artifact
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: review-card
+      #     path: .tmp/card_*.png
+      #     retention-days: 30
