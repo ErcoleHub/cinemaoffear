@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
 import send_sms as ss
 
@@ -34,11 +36,8 @@ def test_upload_to_imgur_raises_on_failure(mock_post, tmp_path):
     img = tmp_path / "card.png"
     img.write_bytes(FAKE_PNG)
     mock_post.return_value = _imgur_fail()
-    try:
+    with pytest.raises(Exception):
         ss.upload_to_imgur(str(img), client_id="BAD")
-        assert False
-    except Exception:
-        pass
 
 @patch("send_sms.Client")
 def test_send_mms_correct_params(MockClient):
@@ -55,11 +54,8 @@ def test_send_mms_correct_params(MockClient):
 @patch("send_sms.Client")
 def test_send_mms_raises_on_error(MockClient):
     MockClient.return_value.messages.create.side_effect = Exception("Twilio auth failed")
-    try:
+    with pytest.raises(Exception):
         ss.send_mms(IMGUR_URL, "+15551234567", "+15559999999", "AC_fake", "bad")
-        assert False
-    except Exception:
-        pass
 
 @patch("send_sms.send_mms")
 @patch("send_sms.upload_to_imgur")

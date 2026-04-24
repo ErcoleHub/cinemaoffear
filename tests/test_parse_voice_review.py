@@ -4,6 +4,8 @@ import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "tools"))
 import parse_voice_review as pvr
 
@@ -55,31 +57,22 @@ def test_year_is_none_when_not_spoken(MockAnthropic):
 def test_invalid_rating_raises_value_error(MockAnthropic):
     bad = dict(VALID_PARSED, ratings={**VALID_PARSED["ratings"], "atmosphere": 6})
     MockAnthropic.return_value.messages.create.return_value = _mock_claude(json.dumps(bad))
-    try:
+    with pytest.raises(ValueError, match=r"(?i)(atmosphere|rating)"):
         pvr.parse_voice_review(FULL_REVIEW)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert "atmosphere" in str(e).lower() or "rating" in str(e).lower()
 
 @patch("parse_voice_review.anthropic.Anthropic")
 def test_invalid_sub_genre_raises_value_error(MockAnthropic):
     bad = dict(VALID_PARSED, sub_genre="romcom")
     MockAnthropic.return_value.messages.create.return_value = _mock_claude(json.dumps(bad))
-    try:
+    with pytest.raises(ValueError, match=r"(?i)sub_genre"):
         pvr.parse_voice_review(FULL_REVIEW)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert "sub_genre" in str(e).lower()
 
 @patch("parse_voice_review.anthropic.Anthropic")
 def test_invalid_recommendation_raises_value_error(MockAnthropic):
     bad = dict(VALID_PARSED, recommendation="rent")
     MockAnthropic.return_value.messages.create.return_value = _mock_claude(json.dumps(bad))
-    try:
+    with pytest.raises(ValueError, match=r"(?i)recommendation"):
         pvr.parse_voice_review(FULL_REVIEW)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert "recommendation" in str(e).lower()
 
 @patch("parse_voice_review.anthropic.Anthropic")
 def test_strips_markdown_fences(MockAnthropic):
@@ -92,8 +85,5 @@ def test_strips_markdown_fences(MockAnthropic):
 def test_missing_title_raises_value_error(MockAnthropic):
     no_title = {k: v for k, v in VALID_PARSED.items() if k != "title"}
     MockAnthropic.return_value.messages.create.return_value = _mock_claude(json.dumps(no_title))
-    try:
+    with pytest.raises(ValueError, match=r"(?i)title"):
         pvr.parse_voice_review(FULL_REVIEW)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert "title" in str(e).lower()
