@@ -1,4 +1,4 @@
-name: Voice Review → SMS Card
+name: Voice Review → Email Card
 
 on:
   workflow_dispatch:
@@ -32,11 +32,9 @@ jobs:
           TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}
           OMDB_API_KEY=${{ secrets.OMDB_API_KEY }}
           ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
-          IMGUR_CLIENT_ID=${{ secrets.IMGUR_CLIENT_ID }}
-          TWILIO_ACCOUNT_SID=${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_AUTH_TOKEN=${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_FROM_NUMBER=${{ secrets.TWILIO_FROM_NUMBER }}
-          REVIEW_PHONE_NUMBER=${{ secrets.REVIEW_PHONE_NUMBER }}
+          GMAIL_USER=${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}
+          REVIEW_EMAIL=${{ secrets.REVIEW_EMAIL }}
           EOF
 
       - name: Parse voice review with Claude
@@ -91,32 +89,30 @@ jobs:
               sys.exit(1)
           PYTHON_SCRIPT
 
-      - name: Upload to Imgur and send MMS
+      - name: Send card via email
         run: |
           python << 'PYTHON_SCRIPT'
           import os, sys
           sys.path.insert(0, '.')
           from dotenv import load_dotenv
-          from tools.send_sms import deliver_card
+          from tools.send_card import deliver_card
           load_dotenv()
           try:
               with open('.tmp/card_path.txt') as f:
                   card_path = f.read().strip()
               result = deliver_card(
                   card_path=card_path,
-                  imgur_client_id=os.environ['IMGUR_CLIENT_ID'],
-                  twilio_account_sid=os.environ['TWILIO_ACCOUNT_SID'],
-                  twilio_auth_token=os.environ['TWILIO_AUTH_TOKEN'],
-                  twilio_from_number=os.environ['TWILIO_FROM_NUMBER'],
-                  review_phone_number=os.environ['REVIEW_PHONE_NUMBER'],
+                  to_email=os.environ['REVIEW_EMAIL'],
+                  gmail_user=os.environ['GMAIL_USER'],
+                  gmail_app_password=os.environ['GMAIL_APP_PASSWORD'],
               )
-              print(f"Imgur URL: {result['imgur_url']}")
-              print(f"Twilio SID: {result['message_sid']}")
+              print(f"Email: {result['email_address']}")
+              print(f"Status: {result['status']}")
           except KeyError as e:
               print(f"ERROR: Missing secret {e}", file=sys.stderr)
               sys.exit(1)
           except Exception as e:
-              print(f"ERROR: Delivery failed: {e}", file=sys.stderr)
+              print(f"ERROR: Email delivery failed: {e}", file=sys.stderr)
               sys.exit(1)
           PYTHON_SCRIPT
 
