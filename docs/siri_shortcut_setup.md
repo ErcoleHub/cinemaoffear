@@ -1,6 +1,6 @@
 # Siri Shortcut: Voice Review → Cinema of Fear Card
 
-Speak a review → GitHub Actions generates the card → MMS arrives on your phone.
+Speak a review → GitHub Actions generates the card → Email arrives with card attached.
 
 ## Prerequisites
 - iPhone iOS 16+
@@ -35,7 +35,7 @@ Open **Shortcuts** app → tap **+**
 
 **Action 3 — Show Notification**
 - Title: `Cinema of Fear`
-- Body: `Review submitted! Card arriving via MMS in ~90 seconds.`
+- Body: `Review submitted! Card arriving via email in ~60 seconds.`
 
 ## Step 3: Add to Home Screen
 Settings (shortcut name at top) → **Add to Home Screen**
@@ -59,4 +59,5 @@ Full example:
 | 401 Unauthorized | PAT expired — regenerate at github.com/settings/tokens |
 | 404 Not Found | Check workflow filename is `voice_review.yml` |
 | 422 Unprocessable | `ref` field wrong — should be `main` |
-| No MMS after 3 min | Check run log at github.com/ErcoleHub/cinemaoffear/actions |
+| No email after 2 min | Check run log at github.com/ErcoleHub/cinemaoffear/actions; check spam folder |
+| Gmail authentication failed | Verify `GMAIL_USER` and `GMAIL_APP_PASSWORD` secrets are correct |
