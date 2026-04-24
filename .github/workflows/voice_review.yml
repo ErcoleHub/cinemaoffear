@@ -1,0 +1,116 @@
+name: Voice Review → Email Card
+
+on:
+  workflow_dispatch:
+    inputs:
+      review_text:
+        description: 'Free-form spoken review'
+        required: true
+
+jobs:
+  generate-and-send:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Create .env file
+        run: |
+          mkdir -p .tmp
+          cat > .env << 'EOF'
+          TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}
+          OMDB_API_KEY=${{ secrets.OMDB_API_KEY }}
+          ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER=${{ secrets.GMAIL_USER }}
+          GMAIL_OAUTH_TOKEN=${{ secrets.GMAIL_OAUTH_TOKEN }}
+          REVIEW_EMAIL=${{ secrets.REVIEW_EMAIL }}
+          EOF
+
+      - name: Parse voice review with Claude
+        run: |
+          python << 'PYTHON_SCRIPT'
+          import json, os, sys
+          sys.path.insert(0, '.')
+          from dotenv import load_dotenv
+          from tools.parse_voice_review import parse_voice_review
+          load_dotenv()
+          raw_text = """${{ github.event.inputs.review_text }}"""
+          print(f"Parsing: {raw_text[:100]}...")
+          try:
+              parsed = parse_voice_review(raw_text)
+              print(f"Parsed: {parsed['title']}")
+              with open('.tmp/parsed_review.json', 'w') as f:
+                  json.dump(parsed, f, indent=2)
+          except ValueError as e:
+              print(f"ERROR: {e}", file=sys.stderr)
+              sys.exit(1)
+          PYTHON_SCRIPT
+
+      - name: Fetch poster and generate card
+        run: |
+          python << 'PYTHON_SCRIPT'
+          import json, sys
+          sys.path.insert(0, '.')
+          from dotenv import load_dotenv
+          from tools.fetch_poster import fetch_poster
+          from tools.generate_card import generate_card
+          load_dotenv()
+          try:
+              with open('.tmp/parsed_review.json') as f:
+                  parsed = json.load(f)
+              year = str(parsed['year']) if parsed.get('year') else None
+              movie = fetch_poster(parsed['title'], year)
+              card_path = generate_card({
+                  'title': parsed['title'],
+                  'year': movie['year'] or year or '',
+                  'runtime': movie['runtime'] or '',
+                  'ratings': parsed['ratings'],
+                  'sub_genre': parsed['sub_genre'],
+                  'recommendation': parsed['recommendation'],
+                  'review_text': parsed['review_text'],
+                  'poster_path': movie['poster_path'],
+              })
+              print(f"Card: {card_path}")
+              with open('.tmp/card_path.txt', 'w') as f:
+                  f.write(card_path)
+          except Exception as e:
+              print(f"ERROR: Card generation failed: {e}", file=sys.stderr)
+              sys.exit(1)
+          PYTHON_SCRIPT
+
+      - name: Send card via email
+        run: |
+          python << 'PYTHON_SCRIPT'
+          import os, sys
+          sys.path.insert(0, '.')
+          from dotenv import load_dotenv
+          from tools.send_card import deliver_card
+          load_dotenv()
+          try:
+              with open('.tmp/card_path.txt') as f:
+                  card_path = f.read().strip()
+              result = deliver_card(
+                  card_path=card_path,
+                  to_email=os.environ['REVIEW_EMAIL'],
+                  from_email=os.environ['GMAIL_USER'],
+              )
+              print(f"Email: {result['email_address']}")
+              print(f"Message ID: {result['message_id']}")
+          except KeyError as e:
+              print(f"ERROR: Missing secret {e}", file=sys.stderr)
+              sys.exit(1)
+          except Exception as e:
+              print(f"ERROR: Email delivery failed: {e}", file=sys.stderr)
+              sys.exit(1)
+          PYTHON_SCRIPT
