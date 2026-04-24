@@ -25,7 +25,8 @@ from google.oauth2.credentials import Credentials as UserCredentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-load_dotenv('.env')
+if not os.getenv('GITHUB_ACTIONS'):
+    load_dotenv('.env')
 
 EMAIL_SUBJECT = "Cinema of Fear — Review Card"
 EMAIL_BODY = "Your horror film review card is attached. Ready to post to Instagram."

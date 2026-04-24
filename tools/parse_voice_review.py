@@ -11,9 +11,11 @@ import re
 import sys
 
 import anthropic
+import os
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+if not os.getenv('GITHUB_ACTIONS'):
+    load_dotenv('.env')
 
 VALID_SUB_GENRES = {
     "slasher", "body_horror", "supernatural", "psychological",

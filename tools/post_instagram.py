@@ -5,10 +5,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+if not os.getenv('GITHUB_ACTIONS'):
+    load_dotenv('.env')
 
 IG_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 GRAPH_BASE = "https://graph.facebook.com/v18.0"
