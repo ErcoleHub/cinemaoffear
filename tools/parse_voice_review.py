@@ -13,7 +13,7 @@ import sys
 import anthropic
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('.env')
 
 VALID_SUB_GENRES = {
     "slasher", "body_horror", "supernatural", "psychological",

@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('.env')
 
 IG_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 GRAPH_BASE = "https://graph.facebook.com/v18.0"

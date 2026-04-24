@@ -7,7 +7,7 @@ from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('.env')
 
 BASE_DIR = Path(__file__).parent.parent
 TMP_DIR = BASE_DIR / ".tmp"

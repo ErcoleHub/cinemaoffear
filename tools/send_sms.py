@@ -14,7 +14,7 @@ import requests
 from dotenv import load_dotenv
 from twilio.rest import Client
 
-load_dotenv()
+load_dotenv('.env')
 
 IMGUR_UPLOAD_URL = "https://api.imgur.com/3/image"
 SMS_BODY = "Cinema of Fear review card — ready to post to Instagram."
