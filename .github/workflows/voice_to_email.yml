@@ -24,27 +24,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           playwright install chromium
-
-      - name: Create .env file
-        run: |
           mkdir -p .tmp
-          cat > .env << 'EOF'
-          TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}
-          OMDB_API_KEY=${{ secrets.OMDB_API_KEY }}
-          ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
-          GMAIL_USER=${{ secrets.GMAIL_USER }}
-          GMAIL_OAUTH_TOKEN=${{ secrets.GMAIL_OAUTH_TOKEN }}
-          REVIEW_EMAIL=${{ secrets.REVIEW_EMAIL }}
-          EOF
 
       - name: Parse voice review with Claude
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_OAUTH_TOKEN: ${{ secrets.GMAIL_OAUTH_TOKEN }}
+          REVIEW_EMAIL: ${{ secrets.REVIEW_EMAIL }}
         run: |
           python << 'PYTHON_SCRIPT'
           import json, os, sys
           sys.path.insert(0, '.')
-          from dotenv import load_dotenv
           from tools.parse_voice_review import parse_voice_review
-          load_dotenv()
           raw_text = """${{ github.event.inputs.review_text }}"""
           print(f"Parsing: {raw_text[:100]}...")
           try:
@@ -58,14 +52,19 @@ jobs:
           PYTHON_SCRIPT
 
       - name: Fetch poster and generate card
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_OAUTH_TOKEN: ${{ secrets.GMAIL_OAUTH_TOKEN }}
+          REVIEW_EMAIL: ${{ secrets.REVIEW_EMAIL }}
         run: |
           python << 'PYTHON_SCRIPT'
           import json, sys
           sys.path.insert(0, '.')
-          from dotenv import load_dotenv
           from tools.fetch_poster import fetch_poster
           from tools.generate_card import generate_card
-          load_dotenv()
           try:
               with open('.tmp/parsed_review.json') as f:
                   parsed = json.load(f)
@@ -90,13 +89,18 @@ jobs:
           PYTHON_SCRIPT
 
       - name: Send card via email
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_OAUTH_TOKEN: ${{ secrets.GMAIL_OAUTH_TOKEN }}
+          REVIEW_EMAIL: ${{ secrets.REVIEW_EMAIL }}
         run: |
           python << 'PYTHON_SCRIPT'
           import os, sys
           sys.path.insert(0, '.')
-          from dotenv import load_dotenv
           from tools.send_card import deliver_card
-          load_dotenv()
           try:
               with open('.tmp/card_path.txt') as f:
                   card_path = f.read().strip()
