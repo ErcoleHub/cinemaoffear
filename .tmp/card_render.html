@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel+Decorative:wght@700&family=Share+Tech+Mono&family=UnifrakturMaguntia&family=Bangers&family=Orbitron:wght@700&family=Bebas+Neue&family=Rubik+Moonrocks&family=Metal+Mania&family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 540px; height: 540px; overflow: hidden; background: #000; }
+</style>
+</head>
+<body><!-- THE CARD: 540×540 renders at 2x device pixel ratio → 1080×1080 PNG -->
+<div style="
+  width:540px;height:540px;
+  background:radial-gradient(ellipse at center,#120404 0%,#080808 55%,#000 100%);
+  overflow:hidden;display:flex;flex-direction:column;position:relative;
+">
+
+  <!-- Corner atmosphere glows -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 0% 100%,rgba(100,0,0,0.14) 0%,transparent 45%);pointer-events:none;z-index:0;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,rgba(70,0,0,0.10) 0%,transparent 40%);pointer-events:none;z-index:0;"></div>
+
+  <!-- HEADER -->
+  <div style="height:52px;min-height:52px;background:linear-gradient(135deg,#0d0d0d 0%,#1a0404 100%);border-bottom:2px solid #8b0000;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;">
+
+    <!-- Logo -->
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCABkAGUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8rKKKKACitbw14fm8SamlrEdigbpJCMhF9fr2FdjpXhHw/rX9oWtsl551mwjNw0g+duRkDGOoPFc1SvCloz2sFlOIxyUqdle6V3bmaV2l6L5eZ5zjNaD+HdUjtvtDafcrDjO8xHGPWuz8MeFlsrjUr5IPtE1khW3jk5Vpdudw/DbgdQSfSrzeLdQ0rQ9MGp2bSXd5M6kEeU4QEYIx0bnj6VhPEvmtSV/6ueph8kpqk6uNm4XTasrpWajq/NvRJbanlxUr1BH1pK7jxTpC77yHaBJEjzoQMYZG2yKPZgQ+OxzjrXD1106iqRujwMbhJYOp7OTv/X9fIKKKK1OAKKKKACiiigAooooA7Pwgmpx+H76XRgDfPcxozcZWMAnv2yRmuh1vSTrMcdnDc2dj59yJ0MTAG5wp3sNvXB6Z9/SuN8Ia7Fpcl1a3bMlneRmN5EGShwRu/In9K6sWej6da6XcWd1Jf3VgreUsCly7ElslQOxPTI968mspRqX+7TyP0PLalKtglTbukrSTla3va2W+qbd1u0l5E98mpXUF1FokpjePVJDMwcKQuF5JPbOc1HfeJIYLixnsUTVY7y9PzSxf6tl2rhPRjnO7vxWX4em1+x1K4nOkXcltcEb42QrjsCC3fHX1z2rburtfDvhudNP0qaGNDvczSJlC3GThi3oOO3esZRUZKOj+a69/nselSrSrUpV05Qtdu8ZO3K9OVWtZxvzX23MPxdqiHV7nYwZfJnJYHs+FX8woP/Aq4U1o3cE9y09wbiG4J+d/LfnH+7wcD6cVnV6tGChHlR+fZhiZ4qs6k1a7b/r7hKK3PD/g/UPEXzQRiO3B2m4lOFB9B3J+ldtpvgu08Lf6VfQR6lGpy0+DmEf3jGcggdz1HXFRUxNOm+W932OvBZJi8bFVeXlp/wAz29e7Xnt3aOH0bwjqeuYeC3KQH/lvL8qfh6/hVHVtPOlalcWhcSGFyhcDANe9Mcp8uMY4x0x7V4n4y/5GjU/+uxrmw2JlXqNNWVj2c7yOhlOEhKEnKTdm36PZf8OYtFFFemfDhRRRQB0Hh2WG0LXFvI630dtO+cAhSFOCPfp+Z9K6zQba41gK97qt9s25KtcMgP6iuJ8ORvNdXMcal5GtJgqqMknYeAKmm0bUZIrYQ6LdwSRoVeVY3JkOSc9OOOOK4asFKTV7PufU4DEzo04yVNyir6K9m9Oyav62O21G1037Y8I0W8v0jxuuhKZUAOCSBu+bAzx6is6+toodDvnislsxLZSEDy9jOguECMw9cVU0S/17Smz/AGbefX7MxB+oxWpq1/d6xY6hJdWNxahLPyy80ZQMTMh4yPauTllCSV7q66n0PtqOIo1J8nLNqWnIl07pLZd/v6HOHw6lppP2hpXaeXyoVRWwpaUbufYLj6k+1bXiHwVZeGPDctwGa6vQ6KZW4C5PO1fw6nNcaLm6uY5IRMTFGu8gnsvArpT47/tnRJ9M1VMM6AJdxjow5BZfqOSPyrqqRrJxad1fU8PCVstlTqwqQ5ZOLUG9VfX7ntr0t062dA8ZnRdJaeaNpYXfyLe1jIUJtG5mJx33Ct67+INrHpdrcyWFwYLvehG5TtA4P168dM1xVj4ijNlBYXGlWk0HnblZfl+Y4DE9fb06V0uqafbx3l9eCW01CJxHHb2CkDaAyhcHGOMt09a5qtKnz3nHV/1/Vz2sDmGL+rOOHrJxikrNardt6q7WlklfdWWmvVaBJv0KzBJbYnlhv720lQfxxXknjL/kaNT/AOux/pXr+kWstnpkMVwFEw3FwhyqksTgewzivH/GP/I0an/12NZ4GzrTa/rU6uKFKOW4dS3uv/STGooor3D8tCiiloAfEZEJdNwK87lyNv41oafqkscxEolulZcBfPddvuNprd0LQrgaJcriEjUI1AZw+YwMkHgeuOmaybezfSl1KSXiSIG3U8j5m4YjP+zkf8CFc/PGd4nsrC1sOqdS9k1d6bbv0d1Z/gOmvfOtriWK7Nu0W3bEbmRmkyf4fp3zWfc3F4YIzNPK8UoyA0pIODjkZ9qmIU6ADxuW4Y/+OrVJZ1+zPEUy24MrZ+7xzx78flVxSWxzVqkpWUna6/4O34dBzalcvCYTcSGIjBTccH8Kr55rp9O8M3N7pHlKkIe4ZZo5GYgjAI29O+a5maNoJXjcYZSVI9CKcZRbaRGIw9alCE6l7NaX/L9fmKkhjYMpwwOQa7TS/FGl3Qso7m2FpcpPGWm3ExbQck4zkfrXD5pQaVSmqisysJjKmDk3BJp7pq//AA3yPoJZ0niEkbiRGGVZDkH6GvF/GP8AyNGp/wDXY/0qHR/EV/ob5tJyqHlom5RvqP61X1XUG1XUbi7ZBG0z7yqnIBriw2GlQqN3urH0uc55SzbCQgouM07tdNnsypRRRXpHxYUo60lPhYpKrBQxBB2kZB/DvQNbnqXhnW4rTweZWkwbeMIct0Pbj8TXn+t6lJe3Vx/zzeUy8dyQP/rflQ2pW0pYfYFVXOWEcjqpP+7k1Xu7uOd0CW8cUSDbtiBBbnOSTkk/WuOlRVOblbc+jx2YyxWHp0OZWgraX189UunqQ/aGW18gqNpffnv2/wAKhqzvtznMcgA6bnz/AEpkcinhlxH/ALKgn866z59q7V2dxpPiaOPwnOnm7ZbeMIqZ5PAxj9a4fUJhcX1xKvSSRmH4kmnLKEHCpj/aQE/rUcjLKxPOfUAAY+grGnSjTk2up6eMx9XGUqdOo/gVv6/IhHSkxzUwZk4UnHqKEwc7vxPetzybEYoqXcqDiPI9XqKgGrBRRRQIK6rwxIdO8Na5qVv8t9EYoo5APmjVm+Yj0J6Zrla0tF16fRDcLHHFcQXCbJYJ13I4zkZ+lY1YucbLy/M9HAVoYevzzdtJK/ZuLSfybv37HZeH7+bU9PsLiZgZpNci3EDGf3YHT3raktrVLzSbmzIMF7qol2gYw2xlZfzB4964CPxldwlNlvbIqXa3iqqEBXC7QAM/dAHSmWfi+9shAFWJ1hujdxq4OFcggjr05ziuCWGnJtrQ+roZzhaUIwqNyejvbW6a1+avfzsdhouqJJ4mvPtd8mo28dqyF/K2hA0qrtORzjPX3qPxBo0dvoek6NA29o9RFvI47sRk/luH5VyVx4pkn+0BLK0thPC0LiBCucsGLdeuVFSQeNL2ExM0cM0iXTXm+QHJkIxzg9P8Kr2E1JSj939fMz/tbCypyoVdb397XZtNrVt7JW9GdF400wanrWnTPFLCk0Eq+WFw7eUWwAD3YYx9e9N8O6Pb6N4qsY4p2kd4rguWxgABgOMf7PqeRXJ3XiC5vNNt7OTDLBI0qSksZMt1Gc9OlM0bWptFv1u4VSSRUZAJMkYYYPQ+5rT2NT2Thfo1+djjeZYV45Ynk3lGTfVW5ebTrqn952+k6nLPaa3K2toWjS2C6iYCAoLHPy4z3I6VH4TtpdR0fWmZGmbUXlTzUT5QVQtnjgZLVyWj+IZNHt7qBbW2uobnb5iXClh8pyOhHrVm38ZXlpcWksMUMQtpJJVjQEIxc85GeQO30qZUJe8o9bdui/zR0UM1oXozrt+6pJr3n8UnfdtfA3rv0b2O08Psy+GtIkklRrGO1uHubVl3NMoJAwMdjXlrYLHAwOwroLbxreWhs/Kgt1W2WVFQqxDLIcsDzXPsQzEgBQT0HQVtQpypyk5df82eXmeNpYqlRhTfwKzv/hgtPK6enz6iUUUV1nz4UUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/Z" style="height:32px;width:auto;object-fit:contain;" alt="Cinema of Fear">
+    </div>
+
+    <!-- Sub-genre label badge -->
+    <div style="background:#0d0d0d;border:1px solid #3a0a0a;border-radius:3px;padding:5px 11px;"><div style="font-family:'Creepster',cursive;font-size:14px;color:#ff2200;letter-spacing:2px;text-shadow:0 0 8px rgba(255,34,0,0.4);display:flex;align-items:center;gap:1px;">SL<svg width="8" height="16" viewBox="0 0 36 95" fill="none" style="display:inline-block;vertical-align:middle;transform:rotate(15deg) translateY(-1px);"><rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a"/><rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a"/><path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/><ellipse cx="21" cy="52" rx="7" ry="4" fill="#cc0000" opacity="0.9"/><path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/></svg>SHER</div></div>
+  </div>
+
+  <!-- BODY -->
+  <div style="flex:1;display:flex;overflow:hidden;position:relative;z-index:1;">
+
+    <!-- LEFT: Poster -->
+    <div style="width:168px;min-width:168px;background:#070707;border-right:2px solid #1a0505;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;gap:8px;">
+      <img src="data:image/png;base64,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" style="width:140px;height:210px;object-fit:cover;border-radius:4px;border:1px solid #8b0000;" alt="Test Film">
+      <div style="color:#888;font-size:10px;text-align:center;letter-spacing:1px;text-transform:uppercase;line-height:1.3;">Test Film</div>
+      <div style="color:#444;font-size:9px;letter-spacing:1px;">2024 · 1h 30m</div>
+    </div>
+
+    <!-- RIGHT: Ratings + Review -->
+    <div style="flex:1;display:flex;flex-direction:column;padding:14px 12px 10px 14px;gap:0;">
+
+      <div style="color:#3a0000;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">— RATINGS —</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+  <span style="color:#bbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:78px;">Atmosphere</span>
+  <div style="display:flex;gap:7px;align-items:center;"><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div></div>
+</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+  <span style="color:#bbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:78px;">Characters</span>
+  <div style="display:flex;gap:7px;align-items:center;"><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div></div>
+</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+  <span style="color:#bbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:78px;">Originality</span>
+  <div style="display:flex;gap:7px;align-items:center;"><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div></div>
+</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+  <span style="color:#bbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:78px;">Script</span>
+  <div style="display:flex;gap:7px;align-items:center;"><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div></div>
+</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+  <span style="color:#bbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:78px;">Gore</span>
+  <div style="display:flex;gap:7px;align-items:center;"><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div></div>
+</div>
+      </div>
+
+      <!-- Overall -->
+      <div style="border-top:1px solid #1a0505;padding-top:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+        <span style="color:#555;font-size:8px;letter-spacing:2px;text-transform:uppercase;">Overall</span>
+        <div style="display:flex;gap:7px;align-items:center;"><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#3d1c0a" stroke="#2a1200" stroke-width="0.5"/>
+    <circle cx="18" cy="7" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="14" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <circle cx="18" cy="21" r="2.3" fill="#b0b0b0" stroke="#888" stroke-width="0.5"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#9a9a9a" stroke="#777" stroke-width="0.5"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#c8c8c8"/>
+    <ellipse cx="21" cy="52" rx="7.5" ry="5" fill="#bb0000" opacity="0.90"/>
+    <ellipse cx="17" cy="59" rx="6" ry="4.5" fill="#990000" opacity="0.85"/>
+    <ellipse cx="23" cy="63" rx="5" ry="3.5" fill="#cc0000" opacity="0.80"/>
+    <path d="M 17,84 Q 16.5,90 16,93.5 Q 16,96 18,96 Q 20,96 19.5,92 Q 19,88 18.5,84 Z" fill="#aa0000"/>
+  </svg>
+</div><div style="width:17px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;">
+  <svg width="14" height="35" viewBox="0 0 36 95" fill="none" opacity="0.15" style="transform:rotate(28deg);transform-origin:center;overflow:visible;">
+    <rect x="8" y="1" width="20" height="24" rx="5" fill="#666"/>
+    <rect x="5" y="25" width="26" height="7" rx="1.5" fill="#555"/>
+    <path d="M 7,32 L 12,84 Q 15,89 18,84 C 29,68 29.5,50 29,32 Z" fill="#666"/>
+  </svg>
+</div></div>
+      </div>
+
+      <!-- Review -->
+      <div style="border-top:1px solid #1a0505;padding-top:8px;">
+        <div style="color:#3a0000;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">— REVIEW —</div>
+        <div style="color:#888;font-size:10px;line-height:1.55;font-style:italic;">"A solid test of the Cinema of Fear review card pipeline."</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER: Recommendation -->
+  <div style="height:52px;min-height:52px;background:linear-gradient(135deg,#0d0d0d 0%,#1a0404 100%);border-top:2px solid #8b0000;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;position:relative;z-index:1;">
+    <div style="flex:1;text-align:center;padding:7px 0;border-radius:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;border:1px solid #222;color:#333;">SKIP</div>
+    <div style="flex:1;text-align:center;padding:7px 0;border-radius:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:#8b0000;border:1px solid #cc0000;color:#fff;font-weight:bold;box-shadow:0 0 14px rgba(139,0,0,0.5);">STREAM</div>
+    <div style="flex:1;text-align:center;padding:7px 0;border-radius:4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;border:1px solid #222;color:#333;">THEATER</div>
+  </div>
+
+</div>
+</body>
+</html>

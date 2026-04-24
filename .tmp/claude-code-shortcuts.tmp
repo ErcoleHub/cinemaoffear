@@ -1,0 +1,48 @@
+# Claude Code — Top 20 Most Helpful Shortcuts
+# Reference this file anytime with: cat .tmp
+
+## Built-in Slash Commands
+
+| Command        | What it's for |
+|----------------|---------------|
+| /init          | Scans your project and creates CLAUDE.md with project context, conventions, and structure — run this first in any new repo |
+| /compact       | Summarizes and compresses conversation history to free up context window space without losing session continuity |
+| /cost          | Shows token usage and estimated cost for the current session |
+| /clear         | Wipes the conversation entirely and starts fresh — more aggressive than /compact |
+| /resume        | Resumes a previous Claude Code session by reloading its context |
+| /summary       | Generates a concise summary of what has been done in the current session |
+| /context       | Shows the current context window state — what's loaded, how full it is |
+| /memory        | Opens your memory file (CLAUDE.md or project memory) for review and editing |
+| /model         | Switches the active model (e.g., swap to Opus 4.6 for harder reasoning tasks) |
+| /fast          | Toggles fast mode — same Opus 4.6 model but optimized for faster output throughput |
+| /help          | Lists all available commands and keyboard shortcuts |
+| /doctor        | Diagnoses Claude Code environment issues (auth, config, MCP servers, etc.) |
+| /vim           | Toggles vim keybindings in the input editor |
+
+## Superpowers Skills (invoked as /skill-name or via the Skill tool)
+
+| Command         | What it's for |
+|-----------------|---------------|
+| /plan           | Writes a detailed, step-by-step implementation plan before touching code — prevents rework |
+| /review         | Full code review against the plan and coding standards after completing a feature or step |
+| /security-review| Security-focused review checking for OWASP top 10, injection flaws, auth issues, etc. |
+| /brainstorm     | Explores intent, requirements, and design space before implementing anything creative or complex |
+| /tdd            | Enforces test-driven development workflow — write tests first, then implementation |
+| /debug          | Systematic debugging process — diagnose root cause before proposing fixes |
+| /loop           | Runs a command or prompt on a recurring interval (e.g., /loop 5m /review) |
+
+## Keyboard Shortcuts
+
+| Shortcut      | Action |
+|---------------|--------|
+| Ctrl+C        | Cancel the current running operation |
+| Escape        | Cancel input / interrupt |
+| Up/Down       | Navigate command history |
+| Ctrl+R        | Search previous commands |
+| Shift+Enter   | Insert a newline without submitting |
+
+## Pro Tips
+- Run /init once per project, then /plan before any multi-step feature
+- Use /compact aggressively to keep context window healthy in long sessions
+- /cost before /compact lets you track spend per task
+- /brainstorm → /plan → implement → /review is the golden workflow
