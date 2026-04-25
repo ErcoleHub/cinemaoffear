@@ -6,6 +6,16 @@ You're working inside the **WAT framework** (Workflows, Agents, Tools). This arc
 
 A horror film review and rating system producing content for the **3C Films** brand. Outputs include rating cards and other media assets for social distribution.
 
+### Card Format Standard
+
+All final cards are generated via `build_card.py` and must match the approved layout established in `cards/card_thrash.png`. Key elements:
+
+- **Left panel:** Score badge (`x.x/5`) above the poster → poster image → title → year · runtime → overview text
+- **Right panel:** Five rating rows, each with: category label | numerical score (`x/5` in red) | five k22 knife icons → review section (fills remaining space, max 400 chars)
+- **Knife icons:** Use the `k22_4k.png` image from `tools/assets/` — never substitute SVG or other images
+- **Footer:** SKIP / STREAM / THEATER recommendation, with the chosen option highlighted in red
+- **Final cards** are saved to `cards/` (not `.tmp/`) and committed to GitHub
+
 ## The WAT Architecture
 
 **Layer 1: Workflows (The Instructions)**
