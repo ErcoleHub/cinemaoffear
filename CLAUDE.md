@@ -8,13 +8,14 @@ A horror film review and rating system producing content for the **3C Films** br
 
 ### Card Format Standard
 
-All final cards are generated via `build_card.py` and must match the approved layout established in `cards/card_thrash.png`. Key elements:
+All final cards are generated via `build_card.py` and must match the approved layout established in `cards/card_thrash.png`. Do not alter the template without explicit instruction. Key elements:
 
-- **Left panel:** Score badge (`x.x/5`) above the poster → poster image → title → year · runtime → overview text
-- **Right panel:** Five rating rows, each with: category label | numerical score (`x/5` in red) | five k22 knife icons → review section (fills remaining space, max 400 chars)
+- **Left panel:** Score badge (`x/5` — no decimal on whole numbers) above the poster → poster image → title → year · runtime → overview text (9px, centered)
+- **Right panel:** Five rating rows with 3px gap between them (knife containers 34px, label margin 6px, section margin 7px), each with: category label | numerical score (`x/5` in red) | five k22 knife icons → review section (fills remaining space, max 400 chars, 12px non-italic)
 - **Knife icons:** Use the `k22_4k.png` image from `tools/assets/` — never substitute SVG or other images
+- **Review:** No quotation marks. Not italic. 12px font.
 - **Footer:** SKIP / STREAM / THEATER recommendation, with the chosen option highlighted in red
-- **Final cards** are saved to `cards/` (not `.tmp/`) and committed to GitHub
+- **Final cards** are saved to `cards/` (not `.tmp/`) and committed to GitHub along with a copy to `cinemaoffear/cards/`
 
 ## The WAT Architecture
 
