@@ -16,6 +16,7 @@ TMP_DIR.mkdir(exist_ok=True)
 
 LOGO_PATH = ASSETS_DIR / "logo.jpg"
 PLACEHOLDER_PATH = ASSETS_DIR / "poster_placeholder.png"
+KNIFE_PATH = ASSETS_DIR / "k22_4k.png"
 
 
 def _b64_image(path: Path) -> str:
@@ -37,9 +38,14 @@ def generate_card(data: dict) -> str:
     ratings = data["ratings"]
     scores = [ratings["atmosphere"], ratings["characters"],
               ratings["originality"], ratings["script"], ratings["gore"]]
-    overall = round(sum(scores) / len(scores))
+    overall = round(sum(scores) / len(scores), 1)
 
-    review = (data.get("review_text") or "")[:250]
+    review = (data.get("review_text") or "")[:400]
+
+    raw_overview = data.get("overview") or ""
+    if len(raw_overview) > 200:
+        raw_overview = raw_overview[:200].rsplit(" ", 1)[0] + "…"
+    overview = raw_overview
 
     raw_poster = data.get("poster_path")
     poster_path = Path(raw_poster) if raw_poster else PLACEHOLDER_PATH
@@ -50,8 +56,10 @@ def generate_card(data: dict) -> str:
         "title": data["title"],
         "year": data.get("year") or "",
         "runtime": data.get("runtime") or "",
+        "overview": overview,
         "poster_src": _b64_image(poster_path),
         "logo_src": _b64_image(LOGO_PATH),
+        "knife_src": _b64_image(KNIFE_PATH),
         "ratings": {k: int(v) for k, v in ratings.items()},
         "overall": overall,
         "sub_genre": data["sub_genre"],
@@ -87,6 +95,7 @@ if __name__ == "__main__":
         "title": "Scream",
         "year": "1996",
         "runtime": "1h 51m",
+        "overview": "A teen is terrorized in her home by an unknown assailant who forces her to answer trivia questions about horror films to save her life.",
         "ratings": {"atmosphere": 5, "characters": 4, "originality": 5, "script": 5, "gore": 3},
         "sub_genre": "slasher",
         "recommendation": "theater",

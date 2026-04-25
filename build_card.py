@@ -41,6 +41,7 @@ def main():
             'title': args.title,
             'year': movie['year'] or (args.year or ''),
             'runtime': movie['runtime'] or '',
+            'overview': movie.get('overview') or '',
             'ratings': {
                 'atmosphere': args.atmosphere,
                 'characters': args.characters,
@@ -50,7 +51,7 @@ def main():
             },
             'sub_genre': args.sub_genre,
             'recommendation': args.recommendation.lower(),
-            'review_text': args.review[:250],
+            'review_text': args.review[:400],
             'poster_path': movie['poster_path'],
         })
         print(f"✓ Card saved to: {card_path}")
