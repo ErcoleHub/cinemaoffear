@@ -38,7 +38,8 @@ def generate_card(data: dict) -> str:
     ratings = data["ratings"]
     scores = [ratings["atmosphere"], ratings["characters"],
               ratings["originality"], ratings["script"], ratings["gore"]]
-    overall = round(sum(scores) / len(scores), 1)
+    overall_raw = round(sum(scores) / len(scores), 1)
+    overall = int(overall_raw) if overall_raw == int(overall_raw) else overall_raw
 
     review = (data.get("review_text") or "")[:400]
 
